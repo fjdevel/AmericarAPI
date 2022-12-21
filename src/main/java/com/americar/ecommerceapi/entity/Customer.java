@@ -4,6 +4,7 @@ package com.americar.ecommerceapi.entity;
 import javax.persistence.*;import java.util.UUID;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.bind.annotation.Mapping;
 
 import java.util.Date;
 import java.util.List;
@@ -14,8 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 public class Customer {
     @Id
-  @GeneratedValue(generator = "UUID")
-  private UUID id;
+    private String id;
 
     @Column()
     private String address;
@@ -205,4 +205,5 @@ public class Customer {
 
     @Column()
     private String webSite;
+
 }

@@ -2,6 +2,7 @@ package com.americar.ecommerceapi.dto;
 
 import com.americar.ecommerceapi.entity.GenderEnum;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
