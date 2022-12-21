@@ -1,7 +1,7 @@
 package com.americar.ecommerceapi.entity;
 
 
-import javax.persistence.*;import java.util.UUID;
+import javax.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,8 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class DocumentsTypes {
     @Id
-  @GeneratedValue(generator = "UUID")
-  private UUID id;
+    private String id;
 
     @Column()
     private String name;

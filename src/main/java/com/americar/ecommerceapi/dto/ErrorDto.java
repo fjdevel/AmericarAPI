@@ -1,6 +1,6 @@
 package com.americar.ecommerceapi.dto;
 
-import javax.persistence.*;import java.util.UUID;
+import javax.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

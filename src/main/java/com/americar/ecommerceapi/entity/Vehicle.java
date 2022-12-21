@@ -1,6 +1,6 @@
 package com.americar.ecommerceapi.entity;
 
-import javax.persistence.*;import java.util.UUID;
+import javax.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -13,9 +13,8 @@ import java.util.List;
 @NoArgsConstructor
 public class Vehicle {
 
-    @Id
-  @GeneratedValue(generator = "UUID")
-  private UUID id;
+     @Id
+    private String id;
     @Column
     private String body;
 

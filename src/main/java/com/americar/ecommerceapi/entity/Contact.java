@@ -1,6 +1,6 @@
 package com.americar.ecommerceapi.entity;
 
-import javax.persistence.*;import java.util.UUID;
+import javax.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,9 +10,8 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 public class Contact {
-    @Id
-  @GeneratedValue(generator = "UUID")
-  private UUID id;
+     @Id
+    private String id;
 
     @Column(nullable = true)
     private String comments;

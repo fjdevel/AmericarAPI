@@ -1,7 +1,7 @@
 package com.americar.ecommerceapi.entity;
 
 import javax.persistence.*;
-import java.util.UUID;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,9 +10,8 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 public class PersonalAccountsCategories {
-    @Id
-  @GeneratedValue(generator = "UUID")
-  private UUID id;
+     @Id
+    private String id;
 
     private ClientTypeEnum clientType;
 

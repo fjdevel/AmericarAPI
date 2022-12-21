@@ -6,10 +6,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.Optional;
 
 @Data
 @NoArgsConstructor
 public class ImagePartResponse {
     @JsonInclude()
-    List<ImagePart> imagePart;
+    List<Optional<ImagePart>> imagePart;
 }

@@ -1,7 +1,7 @@
 package com.americar.ecommerceapi.entity;
 
 
-import javax.persistence.*;import java.util.UUID;
+import javax.persistence.*;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,9 +14,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CodeShipping {
-    @Id
-  @GeneratedValue(generator = "UUID")
-  private UUID id;
+     @Id
+    private String id;
 
     @Column(nullable = true)
     private String account;

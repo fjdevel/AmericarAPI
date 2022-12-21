@@ -1,6 +1,6 @@
 package com.americar.ecommerceapi.entity;
 
-import javax.persistence.*;import java.util.UUID;
+import javax.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,9 +11,8 @@ import java.util.Date;
 @Entity
 @NoArgsConstructor
 public class OrderDeparture {
-    @Id
-  @GeneratedValue(generator = "UUID")
-  private UUID id;
+     @Id
+    private String id;
 
     @Column()
     private String address;

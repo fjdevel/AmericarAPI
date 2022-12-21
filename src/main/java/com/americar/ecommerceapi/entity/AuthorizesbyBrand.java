@@ -2,20 +2,19 @@ package com.americar.ecommerceapi.entity;
 
 
 import javax.persistence.*;
-import java.util.UUID;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.UUID;
+
 
 
 @Data
 @Entity
 @NoArgsConstructor
 public class AuthorizesbyBrand {
-    @Id
-  @GeneratedValue(generator = "UUID")
-  private UUID id;
+     @Id
+    private String id;
 
     @Column(nullable = true)
     private String authorizesBrand;
