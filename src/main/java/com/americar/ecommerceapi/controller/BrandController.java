@@ -37,7 +37,7 @@ public class BrandController {
     @GetMapping("/{id}")
     public ResponseEntity<Object> brandDetail(@PathVariable @Pattern(value = "^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$") String id){
         try{
-           Optional<Brand> brandResponse = brandService.findById(UUID.fromString(id));
+           Optional<Brand> brandResponse = brandService.findById(id);
             return new ResponseEntity<>(brandResponse, HttpStatus.OK);
         }catch (Exception e){
             ErrorDto error = new ErrorDto();

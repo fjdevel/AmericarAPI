@@ -20,7 +20,7 @@ public class BrandService implements IBrandService {
         return brandRepository.findBrandByDescription(description);
     }
 
-    public Optional<Brand> findById(UUID id){
+    public Optional<Brand> findById(String id){
         return brandRepository.findById(id);
     }
 
