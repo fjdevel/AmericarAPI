@@ -13,8 +13,7 @@ import lombok.NoArgsConstructor;
 public class VehicleIdOwner {
 
     @Id
-    @GeneratedValue(generator = "UUID")
-    private UUID vehicleIdOwner;
+    private String vehicleIdOwner;
 
     @ManyToOne
     private Customer customer;

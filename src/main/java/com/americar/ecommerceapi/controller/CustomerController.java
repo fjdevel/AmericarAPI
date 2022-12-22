@@ -25,7 +25,8 @@ public class CustomerController {
     CustomerService customerService;
 
     @PostMapping
-    public ResponseEntity<Object> createCustomer(@RequestBody @Valid CustomerCreateDto customerCreateDto, BindingResult bindingResult){
+    public ResponseEntity<Object> createCustomer(@RequestBody @Valid CustomerCreateDto customerCreateDto,
+                                                 BindingResult bindingResult){
         if (bindingResult.hasErrors()) {
             // Si hay errores de validacion, se devuelve una respuesta con el código de error y la lista de errores
             return ResponseEntity.badRequest().body(bindingResult.getAllErrors());

@@ -14,8 +14,7 @@ import java.util.Date;
 @NoArgsConstructor
 public class RegistrationData {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private UUID id;
+    private String id;
 
     @Column()
     @Temporal(TemporalType.DATE)
