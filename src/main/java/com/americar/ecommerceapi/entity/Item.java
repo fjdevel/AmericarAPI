@@ -13,8 +13,7 @@ import java.util.Date;
 @NoArgsConstructor
 public class Item {
     @Id
-    @GeneratedValue(generator = "UUID")
-    private UUID id;
+    private String id;
 
     @Column
     private String brand;

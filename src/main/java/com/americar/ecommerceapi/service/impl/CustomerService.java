@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 
 @Service
@@ -29,7 +30,7 @@ public class CustomerService implements ICustomerService {
     @Override
     public Customer createCustomer(CustomerCreateDto data) {
         Customer customer = new Customer();
-        String uuid =UUID.randomUUID().toString();
+        String uuid = UUID.randomUUID().toString();
         modelMapper.map(data,customer);
         customer.setId(uuid);
         return customerRepository.save(customer);

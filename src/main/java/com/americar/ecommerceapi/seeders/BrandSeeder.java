@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 
 @Component
@@ -23,10 +24,10 @@ public class BrandSeeder implements CommandLineRunner {
     public void run(String... args) throws Exception {
         // Crear una lista de marcas
         List<Brand> brands = Arrays.asList(
-                new Brand(UUID.randomUUID(), "Mazda"),
-                new Brand(UUID.randomUUID(), "BMW"),
-                new Brand(UUID.randomUUID(), "Toyota"),
-                new Brand(UUID.randomUUID(), "Audii")
+                new Brand(UUID.randomUUID().toString(), "Mazda"),
+                new Brand(UUID.randomUUID().toString(), "BMW"),
+                new Brand(UUID.randomUUID().toString(), "Toyota"),
+                new Brand(UUID.randomUUID().toString(), "Audii")
         );
 
         // Guardar las marcas en la base de datos

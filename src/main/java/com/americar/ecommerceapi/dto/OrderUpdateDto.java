@@ -17,8 +17,7 @@ import java.util.List;
 public class OrderUpdateDto {
     @JsonInclude()
     @Id
-    @GeneratedValue(generator = "UUID")
-    private UUID id;
+    private String id;
 
     @JsonInclude()
     private String comments;
