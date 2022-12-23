@@ -50,4 +50,16 @@ public class Order {
 
     @Column
     private String warehouseId;
+
+    @Column
+    private String userDms;
+
+    @Column
+    private Boolean blockRoute;
+
+    @Column
+    private Boolean fullShipment;
+
+    @Column
+    private String route;
 }
