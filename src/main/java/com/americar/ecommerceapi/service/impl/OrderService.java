@@ -1,6 +1,7 @@
 package com.americar.ecommerceapi.service.impl;
 
 import com.americar.ecommerceapi.dto.OrderCreateDto;
+import com.americar.ecommerceapi.dto.OrderUpdateDto;
 import com.americar.ecommerceapi.entity.Order;
 import com.americar.ecommerceapi.repository.IOrderRepository;
 import com.americar.ecommerceapi.service.IOrderService;
@@ -36,5 +37,10 @@ public class OrderService implements IOrderService {
     @Override
     public Optional<Order> findById(String id) {
         return orderRepository.findById(id);
+    }
+
+    @Override
+    public void updateOrder(OrderUpdateDto updateOrder) {
+        //orderRepository.updateOrder(updateOrder.getId(),updateOrder.getComments(),updateOrder.getDate(),updateOrder.getOrderItems())
     }
 }
