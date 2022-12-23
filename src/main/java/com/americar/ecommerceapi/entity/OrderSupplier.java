@@ -12,9 +12,10 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 public class OrderSupplier {
-     @Id
+    @Id
     private String id;
-
+    
+    @Column()
     private String clientName;
 
     @Column()
