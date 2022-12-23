@@ -32,7 +32,7 @@ public class Order {
 
     @Column()
     @OneToMany(mappedBy="order")
-    private List<OrderItem> orderItems = null;
+    private List<OrderItem> orderItems;
 
     @Column
     private String orderTypeId;

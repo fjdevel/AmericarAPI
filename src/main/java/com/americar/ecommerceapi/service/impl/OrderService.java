@@ -41,6 +41,8 @@ public class OrderService implements IOrderService {
 
     @Override
     public void updateOrder(OrderUpdateDto updateOrder) {
-        //orderRepository.updateOrder(updateOrder.getId(),updateOrder.getComments(),updateOrder.getDate(),updateOrder.getOrderItems())
+        Order orderUpdate = new Order();
+        modelMapper.map(updateOrder,orderUpdate);
+        orderRepository.save(orderUpdate);
     }
 }
