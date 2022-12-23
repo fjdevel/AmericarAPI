@@ -36,19 +36,21 @@ public class Item {
 
     @Column
     private Integer received;
-
-    @Column
-    private String referenceCustomerOrder;
+//
+//    @Column
+//    private String referenceCustomerOrder;
 
     @Column
     private Integer referenceInput;
 
-    @Column
-    private String referenceProviderOrder;
+//    @Column
+//    private String referenceProviderOrder;
 
-    @ManyToOne
+    @ManyToOne(optional = true)
+    @JoinColumn(name = "itemOrder_item_fk", nullable = true)
     private ItemOrder itemOrder;
 
-    @ManyToOne
-    private OrderSupplier orderSupplier;
+    @ManyToOne(optional = true)
+    @JoinColumn(name = "order_supplier_item_fk", nullable = true)
+    private OrderSupplier orderSupplierItem;
 }

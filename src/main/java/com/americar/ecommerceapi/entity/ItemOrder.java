@@ -29,8 +29,7 @@ public class ItemOrder {
     @Column()
     private String dateOrder;
 
-    @Column()
-    @OneToMany(mappedBy="itemOrder")
+    @OneToMany(mappedBy="itemOrder",cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Item> orderItems;
 
     @Column()
@@ -39,7 +38,7 @@ public class ItemOrder {
     @Column()
     private String typeOrder;
 
-    @Column()
+    @Column(name = "userid")
     private String user;
 
     @Column()

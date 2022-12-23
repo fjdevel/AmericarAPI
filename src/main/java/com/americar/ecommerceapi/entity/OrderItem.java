@@ -46,7 +46,8 @@ public class OrderItem {
     @Column
     private Double totalRetailPrice;
 
-    @ManyToOne
+    @ManyToOne(optional = true)
+    @JoinColumn(name = "order_fk_order_item", nullable = true)
     private Order order;
 
 }

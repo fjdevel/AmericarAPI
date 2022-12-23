@@ -14,7 +14,7 @@ import java.util.List;
 public class OrderSupplier {
     @Id
     private String id;
-    
+
     @Column()
     private String clientName;
 
@@ -24,7 +24,7 @@ public class OrderSupplier {
     @Column()
     private String customerAccount;
 
-    @OneToMany(mappedBy="orderSupplier")
+    @OneToMany(mappedBy="orderSupplier",cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CustomerOrder> customerOrder;
 
     @Column()
@@ -35,15 +35,11 @@ public class OrderSupplier {
     private String dateOrder;
 
 
-    @OneToMany(mappedBy="orderSupplier")
+    @OneToMany(mappedBy="orderSupplierItem",cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Item> items;
 
     @Column()
     private String numberOrder;
-
-    @Column()
-    @ElementCollection
-    private List<String> referenceCustomerOrder;
 
     @Column()
     private Boolean singleOrder;
@@ -51,7 +47,7 @@ public class OrderSupplier {
     @Column()
     private String typeOrder;
 
-    @Column()
+    @Column(name = "userid")
     private String user;
 
     @Column()
