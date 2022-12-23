@@ -20,9 +20,7 @@ public class CustomerOrder {
     @Column
     private Integer quantity;
 
-    @Column
-    private String referenceCustomerOrder;
-
-    @ManyToOne
+    @ManyToOne(optional = true)
+    @JoinColumn(nullable = true)
     private OrderSupplier orderSupplier;
 }
