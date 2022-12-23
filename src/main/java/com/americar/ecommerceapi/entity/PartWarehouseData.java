@@ -95,6 +95,6 @@ public class PartWarehouseData {
     private Part part;
 
     @ManyToOne
-    private Part partOEM;
+    private PartOEM partOEM;
 
 }
