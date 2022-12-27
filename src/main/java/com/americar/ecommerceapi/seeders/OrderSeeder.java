@@ -37,7 +37,6 @@ public class OrderSeeder implements CommandLineRunner {
         order1.setBlockRoute(false);
         order1.setFullShipment(true);
         order1.setRoute("Ruta 1");
-
         orderRepository.save(order1);
     }
 }

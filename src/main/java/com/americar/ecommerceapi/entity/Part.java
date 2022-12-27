@@ -61,4 +61,10 @@ public class Part {
     @OneToMany(mappedBy = "part")
     private List<PartWarehouseData> warehousesData;
 
+    @Column()
+    private String shippingId;
+
+    @Column
+    private String warehouseId;
+
 }

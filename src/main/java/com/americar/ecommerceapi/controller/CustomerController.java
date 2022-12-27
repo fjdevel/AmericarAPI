@@ -37,7 +37,7 @@ public class CustomerController {
         }catch (Exception e){
             ErrorDto error = new ErrorDto();
             error.setCode(HttpStatus.BAD_REQUEST.toString());
-            error.setMessage(e.getMessage());
+            error.setMessage("Unexpected Error");
             return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
         }
     }
@@ -56,7 +56,7 @@ public class CustomerController {
         }catch (Exception e){
             ErrorDto error = new ErrorDto();
             error.setCode(HttpStatus.BAD_REQUEST.toString());
-            error.setMessage(e.toString());
+            error.setMessage("Unexcepted Error");
             return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
         }
     }
@@ -70,7 +70,7 @@ public class CustomerController {
         }catch (Exception e){
             ErrorDto error = new ErrorDto();
             error.setCode(HttpStatus.BAD_REQUEST.toString());
-            error.setMessage(e.toString());
+            error.setMessage("Unexcepted Error");
             return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
         }
     }
