@@ -1,5 +1,6 @@
 package com.americar.ecommerceapi.config;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.PathSelectors;
@@ -14,6 +15,7 @@ import java.util.Collections;
 
 @Configuration
 @EnableSwagger2
+//@ConditionalOnProperty(name="app.api.swagger.enable", havingValue = "true", matchIfMissing = false)
 public class SwaggerConfig {
     //Method used to specify controller paths of API for Swagger to be able to locate them
     @Bean
@@ -21,7 +23,7 @@ public class SwaggerConfig {
 
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.jcodepoint.customerserviceswagger"))
+                .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())
                 .build()
                 .apiInfo(getApiInfo());
