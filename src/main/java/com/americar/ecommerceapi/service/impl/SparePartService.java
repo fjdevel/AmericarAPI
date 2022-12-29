@@ -29,10 +29,9 @@ public class SparePartService implements ISparePartService {
     }
 
     @Override
-    public PartsResponseDto searchPart(String brand, String customerId, String family, String Id, Integer quantity, String shippingId, String warehouseId) {
+    public PartsResponseDto searchPart(String brand, String customerId, String family, String Id, Integer quantity, String shippingId, List<String> warehouseId) {
         PartsResponseDto responseDto = new PartsResponseDto();
-        responseDto.setParts(partRepository.searchPartByBrandOrCustomerIdOrFamilyOrIdOrQuantityOrShippingIdOrWarehouseId(brand,customerId,
-                family,Id,quantity,shippingId,warehouseId));
+        responseDto.setParts(partRepository.findAllByBrandOrCustomerIdOrFamilyOrIdOrQuantityOrShippingIdOrWarehouseIdIn(brand, customerId, family, Id, quantity, shippingId, warehouseId));
         return responseDto;
     }
 

@@ -12,7 +12,7 @@ public interface ISparePartService {
     public PartsResponseDto searchPart(String brand, String customerId,
                                        String family, String Id,
                                        Integer quantity, String shippingId,
-                                       String warehouseId);
+                                       List<String>warehouseId);
 
     public Optional<Part> searchById(String id);
 

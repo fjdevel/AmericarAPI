@@ -70,7 +70,7 @@ public class Reservation{
     private String referenceProviderOrder;
 
     @OneToMany(mappedBy = "reservation")
-    private List<ReservedItem> reservedItems;
+    private List<ReservedItem> reservedItems = null;
 
     @Column()
     private String route;

@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -26,7 +27,7 @@ public class SparePartController {
                                              @RequestParam(name = "id",required = false) String id,
                                              @RequestParam(name = "quantity",required = false) Integer quantity,
                                              @RequestParam(name = "shippingId",required = false) String shippingId,
-                                             @RequestParam(name = "warehouseId",required = false) String warehouseId){
+                                             @RequestParam(name = "warehouseId",required = false) List<String> warehouseId){
         try{
             PartsResponseDto responseDto = partService.searchPart(brand, customerId, family, id, quantity, shippingId, warehouseId);
             return new ResponseEntity<>(responseDto,HttpStatus.OK);
