@@ -20,5 +20,9 @@ public class Seller {
     private String leavingDate;
 
     @Column
+    private String entryDate;
+
+
+    @Column
     private String name;
 }
