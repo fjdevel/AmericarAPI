@@ -42,21 +42,21 @@ public class CustomerController {
         }
     }
 
-    @GetMapping()
-    public ResponseEntity<Object> searchCustomer(@RequestParam(name = "id",required = false) String id,
-                                                 @RequestParam(name = "address",required = false) String address,
-                                                 @RequestParam(name = "documentID",required = false) String documentId,
-                                                 @RequestParam(name = "name",required = false) String name,
-                                                 @RequestParam(name = "phoneNumber",required = false) List<String> phoneNumbers){
+
+    @GetMapping("/searchCustomers")
+    public ResponseEntity<Object> searchCustomer(@RequestParam(required = false) String name,
+                                                 @RequestParam(required = false) String id,
+                                                 @RequestParam(required = false) String documentId,
+                                                 @RequestParam(required = false) String address,
+                                                 @RequestParam(required = false) String phoneNumber) {
 
         try {
-            CustomersResponse response = new CustomersResponse();
-            response.setCustomers(customerService.searchCustomer(address,documentId, id,name,phoneNumbers));
+            List<CustomersResponse> response = customerService.getCustomers(name, id, documentId, address, phoneNumber);
             return new ResponseEntity<>(response, HttpStatus.OK);
-        }catch (Exception e){
+        } catch (Exception e) {
             ErrorDto error = new ErrorDto();
             error.setCode(HttpStatus.BAD_REQUEST.toString());
-            error.setMessage("Unexcepted Error");
+            error.setMessage("Unexpected Error");
             return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
         }
     }
