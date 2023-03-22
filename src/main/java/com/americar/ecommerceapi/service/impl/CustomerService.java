@@ -1,63 +1,68 @@
 package com.americar.ecommerceapi.service.impl;
 
-import com.americar.ecommerceapi.dto.CustomerCreateDto;
 import com.americar.ecommerceapi.dto.CustomersResponse;
-import com.americar.ecommerceapi.entity.Customer;
-import com.americar.ecommerceapi.repository.ICustomerRepository;
 import com.americar.ecommerceapi.service.ICustomerService;
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.oauth2.client.OAuth2RestTemplate;
+import com.google.gson.Gson;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
+import org.apache.http.conn.ssl.TrustAllStrategy;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.ssl.SSLContexts;
 import org.springframework.stereotype.Service;
-import org.springframework.web.reactive.function.client.WebClient;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
-
+import javax.net.ssl.SSLContext;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.security.KeyManagementException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
 
 @Service
 public class CustomerService implements ICustomerService {
-    @Autowired
-    ICustomerRepository customerRepository;
-    @Autowired
-    private WebClient webClient;
 
-    @Override
-    public Customer createCustomer(CustomerCreateDto data) {
-        return null;
+    private final String QIS_URL = "https://qis.quiter.com";
+    private final Gson gson;
+
+    public CustomerService(Gson gson) {
+        this.gson = gson;
     }
-
     @Override
-    public List<CustomersResponse> getCustomers(String name, String id, String documentId, String address, String phoneNumber) {
-        ResponseEntity<List<CustomersResponse>> responseEntity =
-                webClient.get()
-                        .uri(uriBuilder -> uriBuilder
-                                .path("/customers")
-                                .queryParamIfPresent("name", Optional.ofNullable(name))
-                                .queryParamIfPresent("id", Optional.ofNullable(id))
-                                .queryParamIfPresent("documentId", Optional.ofNullable(documentId))
-                                .queryParamIfPresent("address", Optional.ofNullable(address))
-                                .queryParamIfPresent("phoneNumber", Optional.ofNullable(phoneNumber))
-                                .build())
-                        .retrieve()
-                        .toEntity(new ParameterizedTypeReference<List<CustomersResponse>>() {})
-                        .block();
+    public CustomersResponse getCustomers(String token, String name, String id, String documentId, String address, String phoneNumber) throws IOException, NoSuchAlgorithmException, KeyStoreException, KeyManagementException {
+        String requestUrl = QIS_URL + "/qis/api/spareparts/v2"+ "?name=" + URLEncoder.encode(name, StandardCharsets.UTF_8)
+                + "&id=" + URLEncoder.encode(id, StandardCharsets.UTF_8)
+                + "&documentId=" + URLEncoder.encode(documentId, StandardCharsets.UTF_8)
+                + "&address=" + URLEncoder.encode(address, StandardCharsets.UTF_8)
+                + "&phoneNumber=" + URLEncoder.encode(phoneNumber, StandardCharsets.UTF_8)
+                + "&mobilePhoneNumber=" + URLEncoder.encode(phoneNumber, StandardCharsets.UTF_8);
+        SSLContext sslContext = SSLContexts.custom()
+                .loadTrustMaterial(null, TrustAllStrategy.INSTANCE)
+                .build();
+        SSLConnectionSocketFactory socketFactory = new SSLConnectionSocketFactory(sslContext, (hostname, session) -> true);
 
-        if (responseEntity != null && responseEntity.getStatusCode().is2xxSuccessful()) {
-            return responseEntity.getBody();
+        HttpClient client = HttpClients.custom()
+                .setSSLSocketFactory(socketFactory)
+                .build();
+
+        HttpGet request = new HttpGet(requestUrl);
+        request.setHeader("Authorization", "Bearer " + token);
+
+        HttpResponse res = client.execute(request);
+
+        if (res.getStatusLine().getStatusCode() != 200) {
+            throw new RuntimeException("Error en la respuesta: " + res.getStatusLine().getStatusCode());
         }
 
-        throw new RuntimeException("Error retrieving customers from API");
-    }
+        HttpEntity entity = res.getEntity();
+        try (InputStream content = entity.getContent()) {
+            return gson.fromJson(new InputStreamReader(content, StandardCharsets.UTF_8), CustomersResponse.class);
+        }
 
-    @Override
-    public Optional<Customer> findById(String id) {
-        return Optional.empty();
+
     }
 }
