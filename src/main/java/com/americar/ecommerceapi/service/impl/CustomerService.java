@@ -1,16 +1,25 @@
 package com.americar.ecommerceapi.service.impl;
 
 import com.americar.ecommerceapi.dto.CustomersResponse;
+import com.americar.ecommerceapi.entity.Customer;
+import com.americar.ecommerceapi.security.ExternalApiAuthClient;
 import com.americar.ecommerceapi.service.ICustomerService;
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.reflect.TypeToken;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.conn.ssl.TrustAllStrategy;
+import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.ssl.SSLContexts;
+import org.apache.http.util.EntityUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.net.ssl.SSLContext;
@@ -22,47 +31,57 @@ import java.nio.charset.StandardCharsets;
 import java.security.KeyManagementException;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class CustomerService implements ICustomerService {
+    private static final String BASE_URL = "https://qis.quiter.com/qis/api/spareparts/v2";
+    @Autowired
+    private ExternalApiAuthClient authClient;
 
-    private final String QIS_URL = "https://qis.quiter.com";
-    private final Gson gson;
-
-    public CustomerService(Gson gson) {
-        this.gson = gson;
-    }
     @Override
-    public CustomersResponse getCustomers(String token, String name, String id, String documentId, String address, String phoneNumber) throws IOException, NoSuchAlgorithmException, KeyStoreException, KeyManagementException {
-        String requestUrl = QIS_URL + "/qis/api/spareparts/v2"+ "?name=" + URLEncoder.encode(name, StandardCharsets.UTF_8)
-                + "&id=" + URLEncoder.encode(id, StandardCharsets.UTF_8)
-                + "&documentId=" + URLEncoder.encode(documentId, StandardCharsets.UTF_8)
-                + "&address=" + URLEncoder.encode(address, StandardCharsets.UTF_8)
-                + "&phoneNumber=" + URLEncoder.encode(phoneNumber, StandardCharsets.UTF_8)
-                + "&mobilePhoneNumber=" + URLEncoder.encode(phoneNumber, StandardCharsets.UTF_8);
-        SSLContext sslContext = SSLContexts.custom()
-                .loadTrustMaterial(null, TrustAllStrategy.INSTANCE)
-                .build();
-        SSLConnectionSocketFactory socketFactory = new SSLConnectionSocketFactory(sslContext, (hostname, session) -> true);
+    public CustomersResponse getCustomers(String name, String id, String documentId, String address, String phoneNumber) throws IOException, NoSuchAlgorithmException, KeyStoreException, KeyManagementException {
+        String accessToken = authClient.getAccessToken();
 
-        HttpClient client = HttpClients.custom()
-                .setSSLSocketFactory(socketFactory)
-                .build();
+        String requestUrl = BASE_URL + "/customers";
+        List<String> queryParams = new ArrayList<>();
 
-        HttpGet request = new HttpGet(requestUrl);
-        request.setHeader("Authorization", "Bearer " + token);
-
-        HttpResponse res = client.execute(request);
-
-        if (res.getStatusLine().getStatusCode() != 200) {
-            throw new RuntimeException("Error en la respuesta: " + res.getStatusLine().getStatusCode());
+        if (name != null) {
+            queryParams.add("name=" + URLEncoder.encode(name, StandardCharsets.UTF_8));
+        }
+        if (id != null) {
+            queryParams.add("id=" + URLEncoder.encode(id, StandardCharsets.UTF_8));
+        }
+        if (documentId != null) {
+            queryParams.add("documentId=" + URLEncoder.encode(documentId, StandardCharsets.UTF_8));
+        }
+        if (address != null) {
+            queryParams.add("address=" + URLEncoder.encode(address, StandardCharsets.UTF_8));
+        }
+        if (phoneNumber != null) {
+            queryParams.add("phoneNumber=" + URLEncoder.encode(phoneNumber, StandardCharsets.UTF_8));
         }
 
-        HttpEntity entity = res.getEntity();
-        try (InputStream content = entity.getContent()) {
-            return gson.fromJson(new InputStreamReader(content, StandardCharsets.UTF_8), CustomersResponse.class);
+        if (!queryParams.isEmpty()) {
+            requestUrl += "?" + String.join("&", queryParams);
         }
 
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        HttpGet httpGet = new HttpGet(requestUrl);
+        httpGet.setHeader("Authorization", "Bearer " + accessToken);
+        HttpResponse httpResponse = httpClient.execute(httpGet);
+        HttpEntity httpEntity = httpResponse.getEntity();
+        String responseString = EntityUtils.toString(httpEntity);
 
+        JsonParser parser = new JsonParser();
+        JsonObject jsonResponse = parser.parse(responseString).getAsJsonObject();
+        JsonArray jsonArray = jsonResponse.getAsJsonArray("customers");
+
+        Gson gson = new Gson();
+        List<Customer> customerList = gson.fromJson(jsonArray, new TypeToken<List<Customer>>() {}.getType());
+        CustomersResponse response = new CustomersResponse();
+        response.setCustomers(customerList);
+        return response;
     }
 }

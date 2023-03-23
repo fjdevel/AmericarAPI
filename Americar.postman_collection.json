@@ -1,12 +1,23 @@
 {
 	"info": {
-		"_postman_id": "6f273b6b-7801-4c5e-9b9d-f37285d22b5c",
+		"_postman_id": "96db2416-046f-466a-b787-8a05b5de4fd0",
 		"name": "Americar",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "find brand",
+			"name": "searchCustomer quiter",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "auth prueba directa quiter",
 			"request": {
 				"method": "GET",
 				"header": []
@@ -14,7 +25,23 @@
 			"response": []
 		},
 		{
-			"name": "New Request",
+			"name": "searchCustomers",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Crear nuevo customer",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Create a new part return",
 			"request": {
 				"method": "GET",
 				"header": []

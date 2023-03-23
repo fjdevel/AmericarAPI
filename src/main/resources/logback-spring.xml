@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/base.xml" />
+
+    <!-- Enable debug level logging for HttpClient -->
+    <logger name="org.apache.http" level="DEBUG" />
+    <logger name="org.apache.http.wire" level="DEBUG" />
+
+    <!-- Set the root logging level and add an appender -->
+    <root level="INFO">
+        <appender-ref ref="CONSOLE" />
+    </root>
+</configuration>

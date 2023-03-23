@@ -13,6 +13,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ICustomerService {
-    CustomersResponse getCustomers(String token,String name, String id, String documentId, String address, String phoneNumber) throws IOException, NoSuchAlgorithmException, KeyStoreException, KeyManagementException;
+    CustomersResponse getCustomers(String name, String id, String documentId, String address, String phoneNumber) throws IOException, NoSuchAlgorithmException, KeyStoreException, KeyManagementException;
 
 }
