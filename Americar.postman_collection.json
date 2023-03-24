@@ -8,10 +8,39 @@
 		{
 			"name": "searchCustomer quiter",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "e78a6b5b-3d6a-4f3e-9335-a0c55d8bc878",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": ""
+					"raw": "https://qis.quiter.com/qis/api/spareparts/v2/customers?id=1",
+					"protocol": "https",
+					"host": [
+						"qis",
+						"quiter",
+						"com"
+					],
+					"path": [
+						"qis",
+						"api",
+						"spareparts",
+						"v2",
+						"customers"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
 				}
 			},
 			"response": []
@@ -19,8 +48,58 @@
 		{
 			"name": "auth prueba directa quiter",
 			"request": {
-				"method": "GET",
-				"header": []
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "authorization_code",
+							"type": "default"
+						},
+						{
+							"key": "client_id",
+							"value": "samurai",
+							"type": "default"
+						},
+						{
+							"key": "client_secret",
+							"value": "6c4a977e82e0d5a21ac165c00d58d9be5e6ab0d0",
+							"type": "default"
+						},
+						{
+							"key": "code",
+							"value": "b669850c8c8bb910313359fb8168f76e4bff68c8",
+							"type": "default"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://qis.quiter.com/qis/oauth/token",
+					"protocol": "https",
+					"host": [
+						"qis",
+						"quiter",
+						"com"
+					],
+					"path": [
+						"qis",
+						"oauth",
+						"token"
+					]
+				}
 			},
 			"response": []
 		},
@@ -28,23 +107,121 @@
 			"name": "searchCustomers",
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/customers?id=1031119",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"customers"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "1031119"
+						}
+					]
+				}
 			},
 			"response": []
 		},
 		{
 			"name": "Crear nuevo customer",
 			"request": {
-				"method": "GET",
-				"header": []
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"category\": \"Personal\",\r\n  \"title\": \"TEST\",\r\n  \"name\": \"TEST 1\",\r\n  \"fullName\": \"CARLOS TEST\",\r\n  \"surname\": \"PEREZ\",\r\n  \"surname2\": \"DANIEL\",\r\n  \"documentId\": \"2222222222\",\r\n  \"gender\": \"H\",\r\n  \"documentType\": \"DNI\",\r\n  \"address\": \"123 TEST Main St\",\r\n  \"streetNumber\": \"1234444\",\r\n  \"floor\": \"1\",\r\n  \"door\": \"A\",\r\n  \"postalCode\": \"12345\",\r\n  \"city\": \"New York\",\r\n  \"country\": \"USA\",\r\n  \"email\": \"john.doe@example.com\",\r\n  \"emailNotAvailable\": \"No\",\r\n  \"fax\": \"1234567890\",\r\n  \"webSite\": \"https://johndoe.com\",\r\n  \"currency\": \"USD\",\r\n  \"phoneNumber\": \"555-555-1234\",\r\n  \"mobilePhoneNumber\": [\r\n    \"555-555-1234\"\r\n  ],\r\n  \"authorizesProcessing\": true,\r\n  \"authorizesTransfer\": true,\r\n  \"confidential\": true,\r\n  \"dataProtection1\": true,\r\n  \"dataProtection2\": true,\r\n  \"dataProtection3\": true,\r\n  \"dataProtection4\": true,\r\n  \"dataProtection5\": true,\r\n  \"dataProtection6\": true,\r\n  \"dataProtection7\": true,\r\n  \"authorizesUse\": \"S\",\r\n  \"authorizesComplianceCont\": \"S\",\r\n  \"authorizesMarketing\": \"S\",\r\n  \"authorizesSurveys\": \"S\",\r\n  \"authorizesProfile\": \"S\",\r\n  \"authorizesOffers\": \"S\",\r\n  \"authorizesOthers\": \"S\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/customers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"customers"
+					]
+				}
 			},
 			"response": []
 		},
 		{
 			"name": "Create a new part return",
 			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"customerId\": \"ABC123\",\r\n  \"deliveryNote\": \"DEL-123\",\r\n  \"partsReturn\": [\r\n    {\r\n      \"part\": \"PART-001\",\r\n      \"quantity\": 2,\r\n      \"partReturnType\": \"DEFECTIVE\"\r\n    },\r\n    {\r\n      \"part\": \"PART-002\",\r\n      \"quantity\": 1,\r\n      \"partReturnType\": \"DAMAGED\"\r\n    }\r\n  ]\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/partsReturn",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"partsReturn"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DIRECT create new part return",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "0d92ffe3-fe35-4181-ae65-5aed689cb0b9",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
-				"header": []
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"customerId\": \"ABC123\",\r\n  \"deliveryNote\": \"DEL-123\",\r\n  \"partsReturn\": [\r\n    {\r\n      \"part\": \"PART-001\",\r\n      \"quantity\": 2,\r\n      \"partReturnType\": \"DEFECTIVE\"\r\n    },\r\n    {\r\n      \"part\": \"PART-002\",\r\n      \"quantity\": 1,\r\n      \"partReturnType\": \"DAMAGED\"\r\n    }\r\n  ]\r\n}\r\n"
+				},
+				"url": {
+					"raw": "https://qis.quiter.com/qis/api/spareparts/v2/partsReturn",
+					"protocol": "https",
+					"host": [
+						"qis",
+						"quiter",
+						"com"
+					],
+					"path": [
+						"qis",
+						"api",
+						"spareparts",
+						"v2",
+						"partsReturn"
+					]
+				}
 			},
 			"response": []
 		}
