@@ -13,15 +13,6 @@ import java.util.Optional;
 @Service
 public class BrandService implements IBrandService {
 
-    @Autowired
-    IBrandRepository brandRepository;
 
-    public List<Brand> findByDescription(String description) {
-        return brandRepository.findBrandByDescription(description);
-    }
-
-    public Optional<Brand> findById(String id){
-        return brandRepository.findById(id);
-    }
 
 }

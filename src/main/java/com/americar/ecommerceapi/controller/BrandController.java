@@ -17,34 +17,6 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/brands")
 public class BrandController {
-    @Autowired
-    private BrandService brandService;
 
-    @GetMapping()
-    public ResponseEntity<Object> searchByDescription(@RequestParam("description") String description){
-       try{
-           BrandsResponseDto response = new BrandsResponseDto();
-           response.setBrands(brandService.findByDescription(description));
-           return new ResponseEntity<>(response, HttpStatus.OK);
-       }catch (Exception e){
-           ErrorDto error = new ErrorDto();
-           error.setCode(HttpStatus.BAD_REQUEST.toString());
-           error.setMessage("Unexpected error");
-           return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
-       }
-    }
-    @Validated
-    @GetMapping("/{id}")
-    public ResponseEntity<Object> brandDetail(@PathVariable @Pattern(value = "^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$") String id){
-        try{
-           Optional<Brand> brandResponse = brandService.findById(id);
-            return new ResponseEntity<>(brandResponse, HttpStatus.OK);
-        }catch (Exception e){
-            ErrorDto error = new ErrorDto();
-            error.setCode(HttpStatus.BAD_REQUEST.toString());
-            error.setMessage("Unexpected error");
-            return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
-        }
-    }
 
 }

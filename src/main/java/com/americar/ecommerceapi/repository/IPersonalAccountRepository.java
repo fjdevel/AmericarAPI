@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface IPersonalAccountRepository extends JpaRepository<PersonalAccountsCategories,String> {
-    List<PersonalAccountsCategories> findByDescriptionOrType(String description, String type);
+public interface IPersonalAccountRepository  {
+
 }

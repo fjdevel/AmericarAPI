@@ -16,31 +16,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class SparePartService implements ISparePartService {
-
-    @Autowired
-    ISparePartRepository partRepository;
-
-    private final ModelMapper modelMapper;
-
-    @Autowired
-    public SparePartService(ModelMapper modelMapper) {
-        this.modelMapper = modelMapper;
-    }
-
-    @Override
-    public PartsResponseDto searchPart(String brand, String customerId, String family, String Id, Integer quantity, String shippingId, List<String> warehouseId) {
-        PartsResponseDto responseDto = new PartsResponseDto();
-        responseDto.setParts(partRepository.findAllByBrandOrCustomerIdOrFamilyOrIdOrQuantityOrShippingIdOrWarehouseIdIn(brand, customerId, family, Id, quantity, shippingId, warehouseId));
-        return responseDto;
-    }
-
-    @Override
-    public Optional<Part> searchById(String id) {
-        return partRepository.findById(id);
-    }
-
-
+public class SparePartService{
 
 
 }

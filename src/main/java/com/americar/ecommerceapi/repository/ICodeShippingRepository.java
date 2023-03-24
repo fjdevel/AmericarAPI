@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 
-public interface ICodeShippingRepository extends JpaRepository<CodeShipping, String> {
+public interface ICodeShippingRepository {
 
-    List<CodeShipping> findCodeShippingByAccount(String account);
 }

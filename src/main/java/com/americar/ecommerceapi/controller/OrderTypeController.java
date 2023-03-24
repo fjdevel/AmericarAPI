@@ -17,37 +17,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/orderTypes")
 public class OrderTypeController {
-    @Autowired
-    OrderTypeService orderTypeService;
 
-    @GetMapping()
-    public ResponseEntity<Object> findAll(@RequestParam(defaultValue = "0") int page,
-                                          @RequestParam(defaultValue = "10") int size){
-        try {
-            OrderTypesResponseDto response = new OrderTypesResponseDto();
-            response.setOrderTypes((List<OrderType>) orderTypeService.findAll(page,size));
-            return new ResponseEntity<>(response, HttpStatus.OK);
-        }catch (Exception e){
-            ErrorDto error = new ErrorDto();
-            error.setCode(HttpStatus.BAD_REQUEST.toString());
-            error.setMessage(e.toString());
-            return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
-        }
-    }
-
-    @Validated
-    @GetMapping("/{id}")
-    public ResponseEntity<Object> brandDetail(@PathVariable @Pattern(value = "^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$") String id){
-        try{
-            Optional<OrderType> response = orderTypeService.findById(id);
-            return new ResponseEntity<>(response, HttpStatus.OK);
-        }catch (Exception e){
-            ErrorDto error = new ErrorDto();
-            error.setCode(HttpStatus.BAD_REQUEST.toString());
-            error.setMessage("Unexpected error");
-            return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
-        }
-    }
 
 
 }

@@ -10,13 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class CodeShippingService implements ICodeShippingService {
+public class CodeShippingService{
 
-    @Autowired
-    ICodeShippingRepository codeShippingRepository;
 
-    @Override
-    public List<CodeShipping> findByAccount(String account) {
-        return codeShippingRepository.findCodeShippingByAccount(account);
-    }
 }

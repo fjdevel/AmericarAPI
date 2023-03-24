@@ -11,18 +11,4 @@ import java.util.Optional;
 
 @Service
 public class SellerService implements ISellerService {
-    @Autowired
-    ISellerRepository repository;
-
-    @Override
-    public SellersResponseDto searchSellers(String account, String entrydate, String leavingDate, String name) {
-        SellersResponseDto responseDto = new SellersResponseDto();
-        responseDto.setSellers(repository.findAllByAccountOrEntryDateOrLeavingDateOrName(account, entrydate, leavingDate, name));
-        return responseDto;
-    }
-
-    @Override
-    public Optional<Seller> searchById(String id) {
-        return repository.findById(id);
-    }
 }

@@ -11,15 +11,4 @@ import java.util.Optional;
 
 @Service
 public class DocumentTypesService implements IDocumentTypesService {
-    @Autowired
-    IDocumentTypeRepository documentTypeRepository;
-    @Override
-    public List<DocumentsTypes> findByName(String name) {
-        return documentTypeRepository.findAllByName(name);
-    }
-
-    @Override
-    public Optional<DocumentsTypes> findById(String id) {
-        return documentTypeRepository.findById(id);
-    }
-}
+ }

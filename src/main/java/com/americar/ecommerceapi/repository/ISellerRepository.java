@@ -5,6 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface ISellerRepository extends JpaRepository<Seller,String> {
-    List<Seller> findAllByAccountOrEntryDateOrLeavingDateOrName(String account,String entrydate,String leavingDate,String name);
+public interface ISellerRepository {
 }

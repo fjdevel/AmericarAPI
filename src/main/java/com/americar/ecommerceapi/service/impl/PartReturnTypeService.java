@@ -11,20 +11,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class PartReturnTypeService implements IPartReturnTypeService {
-    @Autowired
-    IPartReturnTypeRespository partReturnRepository;
+public class PartReturnTypeService{
 
-    private final ModelMapper modelMapper;
-
-    @Autowired
-    public PartReturnTypeService(ModelMapper modelMapper) {
-        this.modelMapper = modelMapper;
-    }
-    @Override
-    public PartsReturnTypesResponse obtenerTodos(){
-        PartsReturnTypesResponse response = new PartsReturnTypesResponse();
-      response.setPartReturnTypes(partReturnRepository.findAll());
-        return response;
-    }
 }

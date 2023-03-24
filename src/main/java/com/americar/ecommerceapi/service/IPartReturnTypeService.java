@@ -7,5 +7,4 @@ import com.americar.ecommerceapi.repository.IPartReturnTypeRespository;
 import java.util.List;
 
 public interface IPartReturnTypeService {
-    public PartsReturnTypesResponse  obtenerTodos();
 }

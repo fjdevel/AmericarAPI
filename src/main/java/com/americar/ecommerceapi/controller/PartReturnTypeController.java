@@ -13,21 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/partsReturnTypes")
 public class PartReturnTypeController {
-    @Autowired
-    PartReturnTypeService partReturnTypeService;
 
-
-    @GetMapping()
-    public ResponseEntity<Object> getPartReturnTypes(){
-        try{
-            PartsReturnTypesResponse response = partReturnTypeService.obtenerTodos();
-            return new ResponseEntity<>(response, HttpStatus.OK);
-        }catch (Exception e){
-            ErrorDto error = new ErrorDto();
-            error.setCode(HttpStatus.BAD_REQUEST.toString());
-            error.setMessage("Unexpected error");
-            return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
-        }
-    }
 
 }

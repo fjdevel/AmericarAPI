@@ -13,16 +13,4 @@ import java.util.Optional;
 
 @Service
 public class OrderTypeService implements IOrderTypeService {
-    @Autowired
-    IOrderTypesRepository orderTypesRepository;
-    @Override
-    public Page<OrderType> findAll(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
-        return orderTypesRepository.findAll(pageable);
-    }
-
-    @Override
-    public Optional<OrderType> findById(String id) {
-        return orderTypesRepository.findById(id);
-    }
-}
+   }

@@ -7,7 +7,5 @@ import java.util.Optional;
 
 
 public interface IBrandService {
-    public List<Brand> findByDescription(String description);
 
-    public Optional<Brand> findById(String id);
 }

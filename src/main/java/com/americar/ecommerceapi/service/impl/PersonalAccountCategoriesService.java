@@ -11,18 +11,6 @@ import java.util.Optional;
 
 @Service
 public class PersonalAccountCategoriesService implements IPersonalAccountCategoriesService {
-    @Autowired
-    IPersonalAccountRepository personalAccountRepository;
 
-    @Override
-    public PersonalAccountsCategoriesResponseDto searchPersonalAccountsCategories(String description, String type) {
-        PersonalAccountsCategoriesResponseDto responseDto  = new PersonalAccountsCategoriesResponseDto();
-        responseDto.setCategories(personalAccountRepository.findByDescriptionOrType(description,type));
-        return responseDto;
-    }
 
-    @Override
-    public Optional<PersonalAccountsCategories> searchById(String id) {
-        return personalAccountRepository.findById(id);
-    }
 }

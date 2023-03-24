@@ -23,6 +23,7 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.ssl.SSLContexts;
 import org.apache.http.util.EntityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.net.ssl.SSLContext;
@@ -39,7 +40,8 @@ import java.util.List;
 
 @Service
 public class CustomerService implements ICustomerService {
-    private static final String BASE_URL = "https://qis.quiter.com/qis/api/spareparts/v2";
+    @Value("${api-quiter-base}")
+    private String BASE_URL;
     @Autowired
     private ExternalApiAuthClient authClient;
 

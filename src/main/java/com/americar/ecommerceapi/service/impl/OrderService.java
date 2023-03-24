@@ -14,35 +14,4 @@ import java.util.UUID;
 
 @Service
 public class OrderService implements IOrderService {
-    @Autowired
-    IOrderRepository orderRepository;
-
-    private final ModelMapper modelMapper;
-
-    @Autowired
-    public OrderService(ModelMapper modelMapper) {
-        this.modelMapper = modelMapper;
-    }
-
-
-    @Override
-    public Order createOrder(OrderCreateDto order) {
-        Order ordercreate = new Order();
-        String uuid = UUID.randomUUID().toString();
-        modelMapper.map(order,ordercreate);
-        ordercreate.setId(uuid);
-        return orderRepository.save(ordercreate);
-    }
-
-    @Override
-    public Optional<Order> findById(String id) {
-        return orderRepository.findById(id);
-    }
-
-    @Override
-    public void updateOrder(OrderUpdateDto updateOrder) {
-        Order orderUpdate = new Order();
-        modelMapper.map(updateOrder,orderUpdate);
-        orderRepository.save(orderUpdate);
-    }
-}
+ }

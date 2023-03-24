@@ -9,14 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 
 @Service
-public class PartOEMService implements IPartOEMService {
-    @Autowired
-    IPartOemRepository partOemRepository;
+public class PartOEMService{
 
-    @Override
-    public PartsOEMResponse searchPartOEM(String brand, String description, Date entryDate, String family, String id) {
-        PartsOEMResponse response = new PartsOEMResponse();
-        response.setParts(partOemRepository.findByBrandOrDescriptionOrEntryDateOrFamilyOrId(brand, description, entryDate, family, id));
-        return response;
-    }
+
 }

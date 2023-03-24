@@ -10,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.security.KeyManagementException;
 import java.security.KeyStoreException;
@@ -26,7 +25,7 @@ public class CustomerController {
                                             @RequestParam(required = false) String id,
                                             @RequestParam(required = false) String documentId,
                                             @RequestParam(required = false) String address,
-                                            @RequestParam(required = false) String phoneNumber) throws IOException, NoSuchAlgorithmException, KeyStoreException, KeyManagementException {
+                                            @RequestParam(required = false) String phoneNumber) throws IOException, NoSuchAlgorithmException, KeyStoreException, KeyManagementException, NoSuchAlgorithmException, KeyStoreException {
         return customerService.getCustomers(name,id,documentId,address,phoneNumber);
     }
 

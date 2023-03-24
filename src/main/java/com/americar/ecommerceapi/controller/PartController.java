@@ -3,6 +3,7 @@ package com.americar.ecommerceapi.controller;
 import com.americar.ecommerceapi.dto.ErrorDto;
 import com.americar.ecommerceapi.dto.PartReturnCreateDto;
 import com.americar.ecommerceapi.dto.PartReturnCreateResponseDto;
+import com.americar.ecommerceapi.exception.ApiResponse;
 import com.americar.ecommerceapi.service.impl.PartReturnService;
 import com.americar.ecommerceapi.service.impl.SparePartService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.io.IOException;
 
 @RestController
 public class PartController {
@@ -21,22 +23,17 @@ public class PartController {
     PartReturnService partService;
 
     @PostMapping("/partsReturn")
-    public ResponseEntity<Object> createPartReturn(@RequestBody @Valid PartReturnCreateDto partReturnCreateDto,
-                                                   BindingResult bindingResult){
-        if (bindingResult.hasErrors()) {
-            // Si hay errores de validacion, se devuelve una respuesta con el código de error y la lista de errores
-            return ResponseEntity.badRequest().body(bindingResult.getAllErrors());
-        }
-
+    public ResponseEntity<?> createPartReturn(@RequestBody PartReturnCreateDto partReturnCreateDto) throws IOException, IOException {
         try {
-            PartReturnCreateResponseDto partReturnCreateResponseDto = new PartReturnCreateResponseDto();
-            partReturnCreateResponseDto = partService.createPartReturn(partReturnCreateDto);
-            return  new ResponseEntity<>(partReturnCreateResponseDto, HttpStatus.OK);
-        }catch (Exception e){
-            ErrorDto error = new ErrorDto();
-            error.setCode(HttpStatus.BAD_REQUEST.toString());
-            error.setMessage("Unexpected Error");
-            return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+            ApiResponse<PartReturnCreateResponseDto> apiResponse =partService.createPartReturn(partReturnCreateDto);
+            if (apiResponse.getStatusCode() == HttpStatus.OK.value()) {
+                return new ResponseEntity<>(apiResponse.getData(), HttpStatus.OK);
+            } else {
+                // Puedes personalizar el manejo de errores aquí, por ejemplo, devolver un ResponseEntity con el objeto ErrorDto y un código de estado personalizado.
+                return new ResponseEntity<>(apiResponse.getError(), HttpStatus.valueOf(apiResponse.getStatusCode()));            }
+        } catch (IOException e) {
+            // Manejar la excepción IOException si es necesario
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

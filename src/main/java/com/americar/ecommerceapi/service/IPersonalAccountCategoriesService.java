@@ -6,7 +6,4 @@ import com.americar.ecommerceapi.entity.PersonalAccountsCategories;
 import java.util.Optional;
 
 public interface IPersonalAccountCategoriesService {
-    public PersonalAccountsCategoriesResponseDto searchPersonalAccountsCategories(String description,String type);
-
-    public Optional<PersonalAccountsCategories> searchById(String id);
-}
+  }
