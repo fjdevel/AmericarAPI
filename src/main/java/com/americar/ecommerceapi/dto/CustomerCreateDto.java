@@ -12,118 +12,44 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 public class CustomerCreateDto {
-    @JsonInclude()
-    private String address;
-
-    @JsonInclude()
-    @Convert(converter=ConversorEnunToString.class)
-    private SNEnum authorizesComplianceCont;
-
-    @JsonInclude()
-    @Convert(converter=ConversorEnunToString.class)
-    private SNEnum authorizesMarketing;
-
-    @JsonInclude()
-    @Convert(converter=ConversorEnunToString.class)
-    private SNEnum authorizesOffers;
-
-    @JsonInclude()
-    @Convert(converter=ConversorEnunToString.class)
-    private SNEnum authorizesOthers;
-
-    @JsonInclude()
-    private Boolean authorizesProcessing;
-
-    @JsonInclude()
-    @Convert(converter=ConversorEnunToString.class)
-    private SNEnum authorizesProfile;
-
-    @JsonInclude()
-    @Convert(converter=ConversorEnunToString.class)
-    private SNEnum authorizesSurveys;
-
-    @JsonInclude()
-    private Boolean authorizesTransfer;
-
-    @JsonInclude()
-    @Convert(converter=ConversorEnunToString.class)
-    private SNEnum authorizesUse;
-
-    @JsonInclude()
     private String category;
-
-    @JsonInclude()
-    private String city;
-
-    @JsonInclude()
-    private Boolean confidential;
-
-    @JsonInclude()
-    private String country;
-
-    @JsonInclude()
-    private String currency;
-
-    @JsonInclude()
-    private String document;
-
-    @JsonInclude()
-    private String documentId;
-
-    @JsonInclude()
-    private String documentType;
-
-    @JsonInclude()
-    private String door;
-
-    @JsonInclude()
-    private String email;
-
-    @JsonInclude()
-    private String emailNotAvailable;
-
-    @JsonInclude()
-    private String fax;
-
-    @JsonInclude()
-    private String fiscalAddress;
-
-    @JsonInclude()
-    private String fiscalAddressNumber;
-
-    @JsonInclude()
-    private String fiscalCity;
-
-    @JsonInclude()
-    private String floor;
-
-    @JsonInclude()
-    private String fullName;
-
-    @JsonInclude()
-    private GenderEnum gender;
-
-    @JsonInclude()
-    private List<String> mobilePhoneNumber;
-
-    @JsonInclude()
-    private List<String> phoneNumber;
-
-    @JsonInclude()
-    private String postalCode;
-
-    @JsonInclude()
-    private String streetNumber;
-
-    @JsonInclude()
-    private String surname;
-
-    @JsonInclude()
-    private String surname2;
-
-    @JsonInclude()
     private String title;
-
-    @JsonInclude()
+    private String name;
+    private String fullName;
+    private String surname;
+    private String surname2;
+    private String documentId;
+    private String gender;
+    private String documentType;
+    private String address;
+    private String streetNumber;
+    private String floor;
+    private String door;
+    private String postalCode;
+    private String city;
+    private String country;
+    private String email;
+    private String emailNotAvailable;
+    private String fax;
     private String webSite;
+    private String currency;
+    private String phoneNumber;
+    private List<String> mobilePhoneNumber;
+    private boolean authorizesProcessing;
+    private boolean authorizesTransfer;
+    private boolean confidential;
+    private boolean dataProtection1;
+    private boolean dataProtection2;
+    private boolean dataProtection3;
+    private boolean dataProtection4;
+    private boolean dataProtection5;
+    private boolean dataProtection6;
+    private boolean dataProtection7;
+    private String authorizesUse;
+    private String authorizesComplianceCont;
+    private String authorizesMarketing;
+    private String authorizesSurveys;
+    private String authorizesProfile;
+    private String authorizesOffers;
+    private String authorizesOthers;
 }

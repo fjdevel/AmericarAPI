@@ -14,5 +14,5 @@ import java.util.Optional;
 
 public interface ICustomerService {
     CustomersResponse getCustomers(String name, String id, String documentId, String address, String phoneNumber) throws IOException, NoSuchAlgorithmException, KeyStoreException, KeyManagementException;
-
+    Customer createCustomer(CustomerCreateDto data) throws IOException;
 }

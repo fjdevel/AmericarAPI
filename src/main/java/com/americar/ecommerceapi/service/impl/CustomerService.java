@@ -1,5 +1,6 @@
 package com.americar.ecommerceapi.service.impl;
 
+import com.americar.ecommerceapi.dto.CustomerCreateDto;
 import com.americar.ecommerceapi.dto.CustomersResponse;
 import com.americar.ecommerceapi.entity.Customer;
 import com.americar.ecommerceapi.security.ExternalApiAuthClient;
@@ -13,8 +14,10 @@ import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.conn.ssl.TrustAllStrategy;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.ssl.SSLContexts;
@@ -83,5 +86,29 @@ public class CustomerService implements ICustomerService {
         CustomersResponse response = new CustomersResponse();
         response.setCustomers(customerList);
         return response;
+    }
+
+    @Override
+    public Customer createCustomer(CustomerCreateDto data) throws IOException {
+        String accessToken = authClient.getAccessToken();
+
+        String requestUrl = BASE_URL + "/customers";
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        HttpPost httpPost = new HttpPost(requestUrl);
+        httpPost.setHeader("Authorization", "Bearer " + accessToken);
+        httpPost.setHeader("Content-Type", "application/json");
+
+        Gson gson = new Gson();
+        String jsonData = gson.toJson(data);
+        StringEntity entity = new StringEntity(jsonData, StandardCharsets.UTF_8);
+        httpPost.setEntity(entity);
+
+        HttpResponse httpResponse = httpClient.execute(httpPost);
+        HttpEntity httpEntity = httpResponse.getEntity();
+        String responseString = EntityUtils.toString(httpEntity);
+
+        JsonObject jsonResponse = gson.fromJson(responseString, JsonObject.class);
+        Customer createdCustomer = gson.fromJson(jsonResponse, Customer.class);
+        return createdCustomer;
     }
 }
