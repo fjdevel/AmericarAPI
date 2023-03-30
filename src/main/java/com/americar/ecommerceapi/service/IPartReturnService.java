@@ -19,6 +19,8 @@ public interface IPartReturnService {
     ApiResponse<Vehicle> getVehicleById(String id) throws IOException;
 
     ApiResponse<Part> getPartById(String id) throws IOException;
+    ApiResponse<PartsResponseDto> searchParts(String id, String description, String family, String entryDate, String brand) throws IOException, URISyntaxException;
+
 
 
 }

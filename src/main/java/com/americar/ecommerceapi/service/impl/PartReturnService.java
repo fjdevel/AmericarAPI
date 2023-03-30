@@ -187,4 +187,43 @@ public class PartReturnService implements IPartReturnService{
         return apiResponse;
     }
 
+    @Override
+    public ApiResponse<PartsResponseDto> searchParts(String id, String description, String family, String entryDate, String brand) throws IOException, URISyntaxException {
+        String accessToken = authClient.getAccessToken();
+
+        String requestUrl = BASE_URL + "/parts";
+        URIBuilder uriBuilder = new URIBuilder(requestUrl);
+        if (id != null) uriBuilder.addParameter("id", id);
+        if (description != null) uriBuilder.addParameter("description", description);
+        if (family != null) uriBuilder.addParameter("family", family);
+        if (entryDate != null) uriBuilder.addParameter("entryDate", entryDate);
+        if (brand != null) uriBuilder.addParameter("brand", brand);
+
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        HttpGet httpGet = new HttpGet(uriBuilder.build());
+        httpGet.setHeader("Authorization", "Bearer " + accessToken);
+        httpGet.setHeader("Content-Type", "application/json");
+
+        HttpResponse httpResponse = httpClient.execute(httpGet);
+        HttpEntity httpEntity = httpResponse.getEntity();
+        String responseString = EntityUtils.toString(httpEntity);
+
+        ApiResponse<PartsResponseDto> apiResponse = new ApiResponse<>();
+        int statusCode = httpResponse.getStatusLine().getStatusCode();
+        apiResponse.setStatusCode(statusCode);
+
+        if (statusCode == HttpStatus.SC_OK) {
+            Gson gson = new Gson();
+            PartsResponseDto response = gson.fromJson(responseString, PartsResponseDto.class);
+            apiResponse.setData(response);
+        } else {
+            Gson gson = new Gson();
+
+            ErrorDto errorDto = gson.fromJson(responseString, ErrorDto.class);
+            apiResponse.setError(errorDto);
+        }
+
+        return apiResponse;
+    }
+
 }
