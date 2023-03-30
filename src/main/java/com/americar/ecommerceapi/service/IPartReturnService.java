@@ -3,6 +3,7 @@ package com.americar.ecommerceapi.service;
 
 import com.americar.ecommerceapi.dto.PartsResponseDto;
 import com.americar.ecommerceapi.dto.VehiclesResponseDto;
+import com.americar.ecommerceapi.entity.Part;
 import com.americar.ecommerceapi.entity.Vehicle;
 import com.americar.ecommerceapi.exception.ApiResponse;
 
@@ -16,5 +17,8 @@ public interface IPartReturnService {
     ApiResponse<VehiclesResponseDto> searchVehicles(Map<String, String> queryParams) throws IOException;
 
     ApiResponse<Vehicle> getVehicleById(String id) throws IOException;
+
+    ApiResponse<Part> getPartById(String id) throws IOException;
+
 
 }

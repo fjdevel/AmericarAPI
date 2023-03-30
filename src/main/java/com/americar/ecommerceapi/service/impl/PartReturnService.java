@@ -156,4 +156,35 @@ public class PartReturnService implements IPartReturnService{
         return apiResponse;
     }
 
+    @Override
+    public ApiResponse<Part> getPartById(String id) throws IOException {
+        String accessToken = authClient.getAccessToken();
+
+        String requestUrl = BASE_URL + "/parts/" + id;
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        HttpGet httpGet = new HttpGet(requestUrl);
+        httpGet.setHeader("Authorization", "Bearer " + accessToken);
+        httpGet.setHeader("Content-Type", "application/json");
+
+        HttpResponse httpResponse = httpClient.execute(httpGet);
+        HttpEntity httpEntity = httpResponse.getEntity();
+        String responseString = EntityUtils.toString(httpEntity);
+
+        ApiResponse<Part> apiResponse = new ApiResponse<>();
+        int statusCode = httpResponse.getStatusLine().getStatusCode();
+        apiResponse.setStatusCode(statusCode);
+
+        if (statusCode == HttpStatus.SC_OK) {
+            Gson gson = new Gson();
+            Part response = gson.fromJson(responseString, Part.class);
+            apiResponse.setData(response);
+        } else {
+            Gson gson = new Gson();
+            ErrorDto errorDto = gson.fromJson(responseString, ErrorDto.class);
+            apiResponse.setError(errorDto);
+        }
+
+        return apiResponse;
+    }
+
 }
