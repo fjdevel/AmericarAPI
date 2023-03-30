@@ -84,5 +84,29 @@ public class PartController {
         }
     }
 
+    @GetMapping("/partsoem")
+    public ResponseEntity<?> searchOemParts(
+            @RequestParam(required = false) String id,
+            @RequestParam(required = false) String description,
+            @RequestParam(required = false) String family,
+            @RequestParam(required = false) String entryDate,
+            @RequestParam(required = false) String brand
+    ) {
+        try {
+            ApiResponse<PartsResponseDto> apiResponse = partService.searchOemParts(id, description, family, entryDate, brand);
 
+            if (apiResponse.getStatusCode() == HttpStatus.OK.value()) {
+                return new ResponseEntity<>(apiResponse.getData(), HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(apiResponse.getError(), HttpStatus.valueOf(apiResponse.getStatusCode()));
+            }
+        } catch (IOException e) {
+            ErrorDto errorDto = new ErrorDto();
+            errorDto.setCode("500");
+            errorDto.setMessage("Internal Server Error");
+            return new ResponseEntity<>(errorDto, HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
