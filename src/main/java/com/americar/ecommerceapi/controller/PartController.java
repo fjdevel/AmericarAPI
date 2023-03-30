@@ -58,7 +58,7 @@ public class PartController {
         }
     }
 
-    @GetMapping("/parts")
+    @GetMapping("/parts2")
     public ResponseEntity<?> searchParts(
             @RequestParam(required = false) String id,
             @RequestParam(required = false) String description,
