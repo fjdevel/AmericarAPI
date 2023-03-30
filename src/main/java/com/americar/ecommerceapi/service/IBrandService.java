@@ -11,5 +11,7 @@ import java.util.Optional;
 
 public interface IBrandService {
     ApiResponse<List<BrandsResponseDto>> searchBrands(String description) throws IOException;
+    ApiResponse<BrandsResponseDto> getBrandById(String id) throws IOException;
+
 
 }

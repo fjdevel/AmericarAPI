@@ -39,4 +39,22 @@ public class BrandController {
         }
     }
 
+    @GetMapping("/brands/{id}")
+    public ResponseEntity<?> getBrandById(@PathVariable String id) {
+        try {
+            ApiResponse<BrandsResponseDto> apiResponse = brandService.getBrandById(id);
+
+            if (apiResponse.getStatusCode() == HttpStatus.OK.value()) {
+                return new ResponseEntity<>(apiResponse.getData(), HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(apiResponse.getError(), HttpStatus.valueOf(apiResponse.getStatusCode()));
+            }
+        } catch (IOException e) {
+            ErrorDto errorDto = new ErrorDto();
+            errorDto.setCode("500");
+            errorDto.setMessage("Internal Server Error");
+            return new ResponseEntity<>(errorDto, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }
