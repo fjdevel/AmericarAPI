@@ -3,6 +3,7 @@ package com.americar.ecommerceapi.service.impl;
 import com.americar.ecommerceapi.dto.*;
 import com.americar.ecommerceapi.entity.Part;
 import com.americar.ecommerceapi.entity.Vehicle;
+import com.americar.ecommerceapi.entity.Warehouse;
 import com.americar.ecommerceapi.exception.ApiResponse;
 import com.google.gson.JsonArray;
 import com.google.gson.reflect.TypeToken;
@@ -264,5 +265,39 @@ public class PartReturnService implements IPartReturnService{
 
         return apiResponse;
     }
+
+    @Override
+    public ApiResponse<Warehouse> getWarehouseById(String id) throws IOException {
+        String accessToken = authClient.getAccessToken();
+
+        String requestUrl = BASE_URL + "/warehouses/" + id;
+
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        HttpGet httpGet = new HttpGet(requestUrl);
+        httpGet.setHeader("Authorization", "Bearer " + accessToken);
+        httpGet.setHeader("Content-Type", "application/json");
+
+        HttpResponse httpResponse = httpClient.execute(httpGet);
+        HttpEntity httpEntity = httpResponse.getEntity();
+        String responseString = EntityUtils.toString(httpEntity);
+
+        ApiResponse<Warehouse> apiResponse = new ApiResponse<>();
+        int statusCode = httpResponse.getStatusLine().getStatusCode();
+        apiResponse.setStatusCode(statusCode);
+
+        if (statusCode == HttpStatus.SC_OK) {
+            Gson gson = new Gson();
+            Warehouse response = gson.fromJson(responseString, Warehouse.class);
+            apiResponse.setData(response);
+        } else {
+            Gson gson = new Gson();
+
+            ErrorDto errorDto = gson.fromJson(responseString, ErrorDto.class);
+            apiResponse.setError(errorDto);
+        }
+
+        return apiResponse;
+    }
+
 
 }

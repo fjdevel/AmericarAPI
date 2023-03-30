@@ -4,6 +4,7 @@ package com.americar.ecommerceapi.controller;
 import com.americar.ecommerceapi.dto.ErrorDto;
 import com.americar.ecommerceapi.dto.PartsResponseDto;
 import com.americar.ecommerceapi.entity.Part;
+import com.americar.ecommerceapi.entity.Warehouse;
 import com.americar.ecommerceapi.exception.ApiResponse;
 import com.americar.ecommerceapi.service.impl.PartReturnService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -107,6 +108,24 @@ public class PartController {
             return new ResponseEntity<>(errorDto, HttpStatus.INTERNAL_SERVER_ERROR);
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    @GetMapping("/warehouses/{id}")
+    public ResponseEntity<?> getWarehouseById(@PathVariable String id) {
+        try {
+            ApiResponse<Warehouse> apiResponse =partService.getWarehouseById(id);
+
+            if (apiResponse.getStatusCode() == HttpStatus.OK.value()) {
+                return new ResponseEntity<>(apiResponse.getData(), HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(apiResponse.getError(), HttpStatus.valueOf(apiResponse.getStatusCode()));
+            }
+        } catch (IOException e) {
+            ErrorDto errorDto = new ErrorDto();
+            errorDto.setCode("500");
+            errorDto.setMessage("Internal Server Error");
+            return new ResponseEntity<>(errorDto, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

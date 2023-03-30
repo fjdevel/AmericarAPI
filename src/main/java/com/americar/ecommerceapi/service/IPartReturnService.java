@@ -5,6 +5,7 @@ import com.americar.ecommerceapi.dto.PartsResponseDto;
 import com.americar.ecommerceapi.dto.VehiclesResponseDto;
 import com.americar.ecommerceapi.entity.Part;
 import com.americar.ecommerceapi.entity.Vehicle;
+import com.americar.ecommerceapi.entity.Warehouse;
 import com.americar.ecommerceapi.exception.ApiResponse;
 
 import java.io.IOException;
@@ -22,6 +23,7 @@ public interface IPartReturnService {
     ApiResponse<PartsResponseDto> searchParts(String id, String description, String family, String entryDate, String brand) throws IOException, URISyntaxException;
 
     ApiResponse<PartsResponseDto> searchOemParts(String id, String description, String family, String entryDate, String brand) throws IOException, URISyntaxException;
+    ApiResponse<Warehouse> getWarehouseById(String id) throws IOException;
 
 
 }
