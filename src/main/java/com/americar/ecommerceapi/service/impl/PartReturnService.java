@@ -17,6 +17,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
@@ -42,6 +43,42 @@ public class PartReturnService implements IPartReturnService{
     private String BASE_URL;
     @Autowired
     private ExternalApiAuthClient authClient;
+
+
+    @Override
+    public ApiResponse<PartReturnCreateResponseDto> createPartReturn(PartReturnCreateDto partReturnDto) throws IOException {
+        String accessToken = authClient.getAccessToken();
+
+        String requestUrl = BASE_URL + "/partsReturn";
+
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        HttpPost httpPost = new HttpPost(requestUrl);
+        httpPost.setHeader("Authorization", "Bearer " + accessToken);
+        httpPost.setHeader("Content-Type", "application/json");
+
+        Gson gson = new Gson();
+        String jsonRequest = gson.toJson(partReturnDto);
+        StringEntity requestEntity = new StringEntity(jsonRequest, ContentType.APPLICATION_JSON);
+        httpPost.setEntity(requestEntity);
+
+        HttpResponse httpResponse = httpClient.execute(httpPost);
+        HttpEntity httpEntity = httpResponse.getEntity();
+        String responseString = EntityUtils.toString(httpEntity);
+
+        ApiResponse<PartReturnCreateResponseDto> apiResponse = new ApiResponse<>();
+        int statusCode = httpResponse.getStatusLine().getStatusCode();
+        apiResponse.setStatusCode(statusCode);
+
+        if (statusCode == HttpStatus.SC_OK) {
+            PartReturnCreateResponseDto response = gson.fromJson(responseString, PartReturnCreateResponseDto.class);
+            apiResponse.setData(response);
+        } else {
+            ErrorDto errorDto = gson.fromJson(responseString, ErrorDto.class);
+            apiResponse.setError(errorDto);
+        }
+
+        return apiResponse;
+    }
 
 
     @Override

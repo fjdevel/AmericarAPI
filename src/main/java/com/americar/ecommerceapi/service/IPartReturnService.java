@@ -1,6 +1,8 @@
 package com.americar.ecommerceapi.service;
 
 
+import com.americar.ecommerceapi.dto.PartReturnCreateDto;
+import com.americar.ecommerceapi.dto.PartReturnCreateResponseDto;
 import com.americar.ecommerceapi.dto.PartsResponseDto;
 import com.americar.ecommerceapi.dto.VehiclesResponseDto;
 import com.americar.ecommerceapi.entity.Part;
@@ -13,6 +15,8 @@ import java.net.URISyntaxException;
 import java.util.Map;
 
 public interface IPartReturnService {
+    ApiResponse<PartReturnCreateResponseDto> createPartReturn(PartReturnCreateDto partReturnDto) throws IOException;
+
     ApiResponse<PartsResponseDto> searchParts(Map<String, String> queryParams) throws IOException, URISyntaxException;
 
     ApiResponse<VehiclesResponseDto> searchVehicles(Map<String, String> queryParams) throws IOException;
