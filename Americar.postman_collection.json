@@ -90,7 +90,18 @@
 			"name": "get part return types",
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/partsReturnTypes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"partsReturnTypes"
+					]
+				}
 			},
 			"response": []
 		},
@@ -98,7 +109,24 @@
 			"name": "part search",
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/parts?id=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"parts"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
 			},
 			"response": []
 		},
@@ -106,7 +134,19 @@
 			"name": "part search by id",
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/parts/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"parts",
+						"1"
+					]
+				}
 			},
 			"response": []
 		},
@@ -114,7 +154,24 @@
 			"name": "search vehicles",
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/vehicles?id=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"vehicles"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
 			},
 			"response": []
 		},
@@ -122,7 +179,19 @@
 			"name": "search vehicles by id",
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/vehicles/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"vehicles",
+						"1"
+					]
+				}
 			},
 			"response": []
 		},
@@ -130,7 +199,18 @@
 			"name": "parts oem",
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/partsoem",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"partsoem"
+					]
+				}
 			},
 			"response": []
 		},
@@ -138,7 +218,18 @@
 			"name": "search warehouse",
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/warehouse",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"warehouse"
+					]
+				}
 			},
 			"response": []
 		},
@@ -146,7 +237,18 @@
 			"name": "image parts",
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/imagesParts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"imagesParts"
+					]
+				}
 			},
 			"response": []
 		},
@@ -154,7 +256,18 @@
 			"name": "brand search",
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/brands",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"brands"
+					]
+				}
 			},
 			"response": []
 		},
@@ -162,7 +275,19 @@
 			"name": "brand search details",
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/brands/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"brands",
+						"1"
+					]
+				}
 			},
 			"response": []
 		}
