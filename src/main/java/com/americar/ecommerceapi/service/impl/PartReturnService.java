@@ -1,10 +1,8 @@
 package com.americar.ecommerceapi.service.impl;
 
-import com.americar.ecommerceapi.dto.PartReturnCreateDto;
-import com.americar.ecommerceapi.dto.PartReturnCreateResponseDto;
-import com.americar.ecommerceapi.dto.ErrorDto;
-import com.americar.ecommerceapi.dto.PartsResponseDto;
+import com.americar.ecommerceapi.dto.*;
 import com.americar.ecommerceapi.entity.Part;
+import com.americar.ecommerceapi.entity.Vehicle;
 import com.americar.ecommerceapi.exception.ApiResponse;
 import com.google.gson.JsonArray;
 import com.google.gson.reflect.TypeToken;
@@ -85,4 +83,77 @@ public class PartReturnService implements IPartReturnService{
 
         return apiResponse;
     }
+
+    @Override
+    public ApiResponse<VehiclesResponseDto> searchVehicles(Map<String, String> queryParams) throws IOException {
+        String accessToken = authClient.getAccessToken();
+        String requestUrl = BASE_URL + "/vehicles";
+
+        // Agrega los parámetros de consulta a la URL
+        if (!queryParams.isEmpty()) {
+            requestUrl += "?";
+            for (Map.Entry<String, String> entry : queryParams.entrySet()) {
+                requestUrl += entry.getKey() + "=" + entry.getValue() + "&";
+            }
+            requestUrl = requestUrl.substring(0, requestUrl.length() - 1);
+        }
+
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        HttpGet httpGet = new HttpGet(requestUrl);
+        httpGet.setHeader("Authorization", "Bearer " + accessToken);
+        httpGet.setHeader("Content-Type", "application/json");
+
+        HttpResponse httpResponse = httpClient.execute(httpGet);
+        HttpEntity httpEntity = httpResponse.getEntity();
+        String responseString = EntityUtils.toString(httpEntity);
+        Gson gson = new Gson();
+
+        ApiResponse<VehiclesResponseDto> apiResponse = new ApiResponse<>();
+        int statusCode = httpResponse.getStatusLine().getStatusCode();
+        apiResponse.setStatusCode(statusCode);
+
+        if (statusCode == HttpStatus.SC_OK) {
+            JsonObject jsonResponse = gson.fromJson(responseString, JsonObject.class);
+            VehiclesResponseDto response = gson.fromJson(jsonResponse, VehiclesResponseDto.class);
+            apiResponse.setData(response);
+        } else {
+            ErrorDto errorDto = gson.fromJson(responseString, ErrorDto.class);
+            apiResponse.setError(errorDto);
+        }
+
+        return apiResponse;
+    }
+
+    @Override
+    public ApiResponse<Vehicle> getVehicleById(String id) throws IOException {
+        String accessToken = authClient.getAccessToken();
+
+        String requestUrl = BASE_URL + "/vehicles/" + id;
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        HttpGet httpGet = new HttpGet(requestUrl);
+        httpGet.setHeader("Authorization", "Bearer " + accessToken);
+        httpGet.setHeader("Content-Type", "application/json");
+
+        HttpResponse httpResponse = httpClient.execute(httpGet);
+        HttpEntity httpEntity = httpResponse.getEntity();
+        String responseString = EntityUtils.toString(httpEntity);
+
+        ApiResponse<Vehicle> apiResponse = new ApiResponse<>();
+        int statusCode = httpResponse.getStatusLine().getStatusCode();
+        apiResponse.setStatusCode(statusCode);
+
+        if (statusCode == HttpStatus.SC_OK) {
+            Gson gson = new Gson();
+            Vehicle response = gson.fromJson(responseString, Vehicle.class);
+            apiResponse.setData(response);
+        } else {
+            Gson gson = new Gson();
+
+            ErrorDto errorDto = gson.fromJson(responseString, ErrorDto.class);
+            apiResponse.setError(errorDto);
+        }
+
+        return apiResponse;
+    }
+
 }
