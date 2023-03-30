@@ -6,104 +6,6 @@
 	},
 	"item": [
 		{
-			"name": "searchCustomer quiter",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "e78a6b5b-3d6a-4f3e-9335-a0c55d8bc878",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "https://qis.quiter.com/qis/api/spareparts/v2/customers?id=1",
-					"protocol": "https",
-					"host": [
-						"qis",
-						"quiter",
-						"com"
-					],
-					"path": [
-						"qis",
-						"api",
-						"spareparts",
-						"v2",
-						"customers"
-					],
-					"query": [
-						{
-							"key": "id",
-							"value": "1"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "auth prueba directa quiter",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "default"
-					}
-				],
-				"body": {
-					"mode": "urlencoded",
-					"urlencoded": [
-						{
-							"key": "grant_type",
-							"value": "authorization_code",
-							"type": "default"
-						},
-						{
-							"key": "client_id",
-							"value": "samurai",
-							"type": "default"
-						},
-						{
-							"key": "client_secret",
-							"value": "6c4a977e82e0d5a21ac165c00d58d9be5e6ab0d0",
-							"type": "default"
-						},
-						{
-							"key": "code",
-							"value": "b669850c8c8bb910313359fb8168f76e4bff68c8",
-							"type": "default"
-						}
-					],
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "https://qis.quiter.com/qis/oauth/token",
-					"protocol": "https",
-					"host": [
-						"qis",
-						"quiter",
-						"com"
-					],
-					"path": [
-						"qis",
-						"oauth",
-						"token"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "searchCustomers",
 			"request": {
 				"method": "GET",
@@ -185,43 +87,82 @@
 			"response": []
 		},
 		{
-			"name": "DIRECT create new part return",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
+			"name": "get part return types",
 			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "0d92ffe3-fe35-4181-ae65-5aed689cb0b9",
-							"type": "string"
-						}
-					]
-				},
 				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n  \"customerId\": \"ABC123\",\r\n  \"deliveryNote\": \"DEL-123\",\r\n  \"partsReturn\": [\r\n    {\r\n      \"part\": \"PART-001\",\r\n      \"quantity\": 2,\r\n      \"partReturnType\": \"DEFECTIVE\"\r\n    },\r\n    {\r\n      \"part\": \"PART-002\",\r\n      \"quantity\": 1,\r\n      \"partReturnType\": \"DAMAGED\"\r\n    }\r\n  ]\r\n}\r\n"
-				},
-				"url": {
-					"raw": "https://qis.quiter.com/qis/api/spareparts/v2/partsReturn",
-					"protocol": "https",
-					"host": [
-						"qis",
-						"quiter",
-						"com"
-					],
-					"path": [
-						"qis",
-						"api",
-						"spareparts",
-						"v2",
-						"partsReturn"
-					]
-				}
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "part search",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "part search by id",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "search vehicles",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "search vehicles by id",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "parts oem",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "search warehouse",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "image parts",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "brand search",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "brand search details",
+			"request": {
+				"method": "GET",
+				"header": []
 			},
 			"response": []
 		}

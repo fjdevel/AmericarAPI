@@ -7,10 +7,10 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+
 @Data
 @NoArgsConstructor
-public class PartsReturnTypesResponse{
-
-    @JsonInclude
-    private List<PartReturnType> partReturnTypes;
+public class PartReturnTypesResponseDto {
+    @JsonInclude()
+    private List<PartReturnType> partsReturnTypes;
 }
